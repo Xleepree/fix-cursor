@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@vf
+        uses: actions/checkout@v4
 
       - name: rust
         uses: dtolnay/rust-toolchain@stable
