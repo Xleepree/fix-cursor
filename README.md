@@ -14,7 +14,7 @@ tar -xzf fix-cursor-linux-x86_64.tar.gz
 ```
 3. Install that:
 ```
-sudo install -Dm755 Xleepree/fix-cursor /usr/local/bin/fix-cursor
+sudo install -Dm755 fix-cursor/fix-cursor /usr/local/bin/fix-cursor
 ```
 **To uninstall:**
 ```
