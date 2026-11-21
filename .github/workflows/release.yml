@@ -20,14 +20,15 @@ jobs:
       - name: rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Build
+      - name: build
         run: cargo build --release --locked
 
       - name: package
         run: |
           mkdir -p dist/fix-cursor
           cp target/release/fix-cursor dist/fix-cursor/
-          cp README.md LICENSE dist/fix-cursor/
+          cp README.md dist/fix-cursor/
+          cp LICENSE dist/fix-cursor/
           tar -czf fix-cursor-linux-x86_64.tar.gz -C dist fix-cursor
       
       - name: checksum
