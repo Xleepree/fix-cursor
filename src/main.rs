@@ -30,13 +30,14 @@ fn create_list() -> Result<(), std::io::Error> {
     let list_path = list_location();
     if !Path::exists(list_location().as_path()) {
         println!("List does not exist, creating list");
-        if let Some(parent) = list_path.parent() {
+        if let Some(parent) = &list_path.parent() {
             fs::create_dir_all(parent)?;
         }
         fs::OpenOptions::new()
             .create(true)
             .append(true)
-            .open(list_path)?;
+            .open(&list_path)?;
+        fs::write(&list_path, "[]")?;
         println!("Created list at {}", list_location().display());
     }
     return Ok(());
