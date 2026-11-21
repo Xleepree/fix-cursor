@@ -56,6 +56,7 @@ fn list_as_jsonvalue() -> Result<serde_json::Value, std::io::Error> {
 fn add_application(application: &String) {
     // a tribute to ali
     // let graphics: &str = "good";
+    // i forget what else he said
     let list_path: PathBuf = list_location();
     let mut list_jsonvalue: serde_json::Value = list_as_jsonvalue()
         .expect("Failed to get list as JSON value");
