@@ -19,4 +19,6 @@ sudo install -Dm755 fix-cursor/fix-cursor /usr/local/bin/fix-cursor
 **To uninstall:**
 ```
 sudo rm /usr/local/bin/fix-cursor
+# Deletes fix-cursor data, uncomment this if you'd like that
+# rm -rf ~/.config/fix-cursor
 ```
