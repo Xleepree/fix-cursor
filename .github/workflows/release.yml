@@ -32,8 +32,16 @@ jobs:
       
       - name: checksum
         run: |
-          sha256sum fix-cursor-linux-x86_64.tar.gz |
-            > fix-cursor-linux-x86_64.tar.gz.sha256
+          sha256sum fix-cursor-linux-x86_64.tar.gz \
+            | tee fix-cursor-linux-x86_64.tar.gz.sha256
+          test -s fix-cursor-linux-x86_64.tar.gz.sha256
+
+      - name: inspect release assets
+        run: |
+          ls -lh fix-cursor-linux-x86_64.tar.gz*
+          wc -c fix-cursor-linux-x86_64.tar.gz.sha256
+          cat fix-cursor-linux-x86_64.tar.gz.sha256
+          test -s fix-cursor-linux-x86_64.tar.gz.sha256
 
       - name: publish release
         env:
