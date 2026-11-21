@@ -1,0 +1,46 @@
+name: build and release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: build binary
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@vf
+
+      - name: rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build
+        run: cargo build --release --locked
+
+      - name: package
+        run: |
+          mkdir -p dist/fix-cursor
+          cp target/release/fix-cursor dist/fix-cursor/
+          cp README.md LICENSE dist/fix-cursor/
+          tar -czf fix-cursor-linux-x86_64.tar.gz -C dist fix-cursor
+      
+      - name: checksum
+        run: |
+          sha256sum fix-cursor-linux-x86_64.tar.gz |
+            > fix-cursor-linux-x86_64.tar.gz.sha256
+
+      - name: publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" \
+            fix-cursor-linux-x86_64.tar.gz \
+            fix-cursor-linux-x86_64.tar.gz.sha256 \
+            --title "fix-cursor ${GITHUB_REF_NAME}" \
+            --generate-notes
